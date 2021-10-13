@@ -181,6 +181,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "333928d5eb103c5d4050533cec0384302db6be8ef7d3cebd30ec6a35350353da"
 
 [[package]]
+name = "gravity-discs"
+version = "0.1.0"
+dependencies = [
+ "macroquad",
+ "rayon",
+ "roots",
+]
+
+[[package]]
 name = "hashbrown"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -367,15 +376,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "13e571c3517af9e1729d4c63571a27edd660ade0667973bfc74a67c660c2b651"
 dependencies = [
  "byteorder",
-]
-
-[[package]]
-name = "particles"
-version = "0.1.0"
-dependencies = [
- "macroquad",
- "rayon",
- "roots",
 ]
 
 [[package]]
