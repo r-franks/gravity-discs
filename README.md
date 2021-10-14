@@ -1,10 +1,19 @@
 # gravity-discs
+
 A simple rigid body physics engine for entertaining eccentrically inclined youths. It is fancier than the usual physics engine in two ways:
 * The engine parallelizes the motion of discs and their interactions using rayon
-* The integration time-step is dynamically updated so that the end of each time-step occurs at or prior to the next elastic (or inelastic) collision if particles are assumed to move at constant velocity over each time-step.
+* Collisions are resolved *purely* through momentum transfer at/near the point of detected collisions -- which means that gravity-discs runs simulations with physically-sensible collision handling that do not explode even at very high time-steps.
+  - This is somewhat unusual. Typically, physics engines either [directly shift overlapping discs out of each other](https://www.cs.utah.edu/~ladislav/kavan03rigid/kavan03rigid.pdf) (which causes them to move, unphysically, in a way unrelated to their velocities) or use [short-range repulsive forces](https://en.wikipedia.org/wiki/Lennard-Jones_potential) to implicitly handle collisions (which requires very small time-steps to prevent the simulation from blowing up). gravity-discs performs physically serious collision handling at time-steps large enough to be entertaining. 
+* The above perk is possible because the integration time-step in gravity-discs is dynamically updated so that the end of each time-step occurs at or prior to the next elastic (or inelastic) collision if particles are assumed to move at constant velocity over each time-step.
   This is done by solving the quadratic equation that describes when two circles traveling at constant velocity overlap.
   - This assumption is exactly true when Euler's Method is used, so collision handling does not proliferate error beyond the error due to floating point arithmetic when Euler's Method is used. 
   - This assumption is only approximately true when Velocity Verlet due to the presence of acceleration. In principle, this could still be solved exactly. However, the equation that describes when two circles traveling at constant acceleration overlap is quartic and Rust's current packages for quartic equation solving are limited.
+
+## Interface
+Below is a picture of what gravity-discs looks like while running. Note that despite many discs of many different sizes all in contact with each other, disc overlap is still very limited. This is achieved purely by dynamically updating the integration time-step and performing elastic/inelastic collisions with the correct physics! Disc overlap is *only* resolved by means that make physical sense.
+<p align="center">
+<img src="https://github.com/russchertow/gravity-discs/blob/main/example_shot.PNG?raw=true" height=50% width=50%>
+</p>
 
 ## Features for Users
 Below is a discussion of the features that gravity-discs offers to users. 
