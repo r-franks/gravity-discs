@@ -202,7 +202,6 @@ fn inelastic_collision(disc1: Disc, disc2: Disc, c: f32) -> (Vec2, Vec2) {
         let m2 = disc2.mass.abs();
 
         // calculate momentum transfer if there's a normal vector
-        let m1m2 = m1+m2;
         let vdotx = dx.dot(dv);
 
         let term1 = (1.0+c)*(vdotx/dx_mag2)*dx/(m1+m2);
@@ -462,7 +461,6 @@ async fn main() {
     // vec containing disc index pairs
     let mut disc_idx_pair_vec: Vec<(usize, usize)> = Vec::new();
     
-    let mut after_backstep = false;
     let mut reversal = 0.0;
     
     let mut paused: bool = false;
